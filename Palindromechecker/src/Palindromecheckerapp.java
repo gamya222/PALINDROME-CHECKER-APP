@@ -1,29 +1,29 @@
 /**
  * =====================================================
- * MAIN CLASS - UseCase12PalindromeCheckerApp
+ * MAIN CLASS - UseCase13PalindromeCheckerApp
  * =====================================================
  *
- * Use Case 12: Strategy Pattern for Palindrome Algorithms
+ * Use Case 13: Performance Comparison
  *
- * Description:
- * This class demonstrates how different palindrome
- * validation algorithms can be selected dynamically
- * at runtime using the Strategy Design Pattern.
+ * This class measures execution time of
+ * palindrome validation algorithms.
  *
- * @author Developer
- * @version 12.0
+ * @author gamya222
+ * @version 13.0
  */
 
 public class Palindromecheckerapp {
     public static void main(String[] args) {
-
         String input = "level";
         PalindromeStrategy strategy = new StackStrategy();
 
+        long startTime = System.nanoTime();
         boolean result = strategy.check(input);
-
+        long endTime = System.nanoTime();
+        long executionTime = endTime - startTime;
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + result);
+        System.out.println("Execution Time : " + executionTime + " ns");
     }
 }
 interface PalindromeStrategy {
@@ -33,6 +33,7 @@ class StackStrategy implements PalindromeStrategy {
     @Override
     public boolean check(String input) {
         java.util.Stack<Character> stack = new java.util.Stack<>();
+
         for (char c : input.toCharArray()) {
             stack.push(c);
         }
