@@ -1,45 +1,45 @@
 /**
- * =========================================================
- * MAIN CLASS - UseCase11PalindromeCheckerApp
- * =========================================================
+ * =====================================================
+ * MAIN CLASS - UseCase12PalindromeCheckerApp
+ * =====================================================
  *
- * Use Case 11: Object-Oriented Palindrome Service
+ * Use Case 12: Strategy Pattern for Palindrome Algorithms
  *
  * Description:
- * This class demonstrates palindrome validation using
- * object-oriented design.
+ * This class demonstrates how different palindrome
+ * validation algorithms can be selected dynamically
+ * at runtime using the Strategy Design Pattern.
  *
- * The palindrome logic is encapsulated inside a
- * PalindromeService class.
- *
- * @author gamya222
- * @version 11.0
+ * @author Developer
+ * @version 12.0
  */
 
 public class Palindromecheckerapp {
     public static void main(String[] args) {
 
-        String input = "racecar";
+        String input = "level";
+        PalindromeStrategy strategy = new StackStrategy();
 
-        PalindromeService service = new PalindromeService();
-        boolean result = service.checkPalindrome(input);
+        boolean result = strategy.check(input);
 
         System.out.println("Input : " + input);
         System.out.println("Is Palindrome? : " + result);
     }
 }
-class PalindromeService {
-    public boolean checkPalindrome(String input) {
-
-        int start = 0;
-        int end = input.length() - 1;
-
-        while (start < end) {
-            if (input.charAt(start) != input.charAt(end)) {
+interface PalindromeStrategy {
+    boolean check(String input);
+}
+class StackStrategy implements PalindromeStrategy {
+    @Override
+    public boolean check(String input) {
+        java.util.Stack<Character> stack = new java.util.Stack<>();
+        for (char c : input.toCharArray()) {
+            stack.push(c);
+        }
+        for (char c : input.toCharArray()) {
+            if (c != stack.pop()) {
                 return false;
             }
-            start++;
-            end--;
         }
         return true;
     }
